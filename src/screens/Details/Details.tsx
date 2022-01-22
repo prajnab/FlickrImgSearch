@@ -2,12 +2,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Colors, Fonts } from "../../assets";
-import env from "../../config";
+import { ImageSizeSuffix } from "../../constants/enum.constants";
 import {
 	GeneralStackParamList,
 	GeneralStackRouteName
 } from "../../navigation/type";
-import { horizontalScale, verticalScale } from "../../utilities";
+import { getImageUrl, horizontalScale, verticalScale } from "../../utilities";
 
 type Props = NativeStackScreenProps<
 	GeneralStackParamList,
@@ -20,7 +20,7 @@ export const Details = ({ navigation, route }: Props) => {
 			<Image
 				style={styles.img}
 				source={{
-					uri: `${env.imageBaseUrl}${data.server}/${data.id}_${data.secret}_c.jpg`
+					uri: getImageUrl(data, ImageSizeSuffix.Large)
 				}}
 				resizeMode="cover"
 			/>

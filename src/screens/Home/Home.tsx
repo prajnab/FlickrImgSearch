@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
 	ActivityIndicator,
 	FlatList,
@@ -9,6 +9,8 @@ import {
 	TouchableOpacity,
 	View
 } from "react-native";
+import debounce from "lodash.debounce";
+
 import { Colors, Fonts } from "../../assets";
 import { INITIAL_PAGE_NO } from "../../constants/app.constants";
 import {
@@ -16,13 +18,11 @@ import {
 	GeneralStackRouteName
 } from "../../navigation/type";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { horizontalScale, moderateScale, verticalScale } from "../../utilities";
+import { getImageUrl, horizontalScale, verticalScale } from "../../utilities";
 import { getSearchResults } from "../../redux/actions/photo.action";
-import { PhotoService } from "../../services/photo.service";
 import { SearchText } from "../../components/SearchText/SearchText";
 import { PhotoServiceTypes } from "../../services/types";
-import env from "../../config";
-import { ImageSizeClass } from "../../constants/enum.constants";
+import { ImageSizeSuffix } from "../../constants/enum.constants";
 
 type Props = NativeStackScreenProps<
 	GeneralStackParamList,
@@ -47,12 +47,13 @@ export const Home = ({ navigation }: Props) => {
 				setIsLoading(false);
 			});
 	};
+	const debounceSearchPhotos = useCallback(debounce(searchPhotos, 400), []);
 
 	const onSearchTextChanged = (text: string) => {
 		page.current = INITIAL_PAGE_NO;
 		pages.current = INITIAL_PAGE_NO;
 		setSearchText(text);
-		searchPhotos(text);
+		debounceSearchPhotos(text);
 	};
 
 	const onEndReachedThreshold = () => {
@@ -89,7 +90,7 @@ export const Home = ({ navigation }: Props) => {
 			>
 				<Image
 					source={{
-						uri: `${env.imageBaseUrl}${item.server}/${item.id}_${item.secret}_w.jpg`
+						uri: getImageUrl(item, ImageSizeSuffix.Small)
 					}}
 					style={styles.img}
 					resizeMode="cover"

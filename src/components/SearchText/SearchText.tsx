@@ -6,7 +6,6 @@ import { horizontalScale, verticalScale } from "../../utilities";
 import { Colors, Fonts, Strings } from "../../assets";
 
 export const SearchText = (props: SearchTextProps) => {
-	// Add debounce
 	const onChangeText = (text: string) => {
 		// TODO: Do any required validation here
 		props.onChangeText(text);

@@ -53,4 +53,7 @@ export enum ImageSizeClass {
 	Original = "original"
 }
 
-export enum ImageSizeSuffix {}
+export enum ImageSizeSuffix {
+	Small = "w",
+	Large = "c"
+}

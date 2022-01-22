@@ -5,3 +5,5 @@ export {
 	verticalScale,
 	moderateScale
 } from "./scale";
+
+export { getImageUrl } from "./utils";
