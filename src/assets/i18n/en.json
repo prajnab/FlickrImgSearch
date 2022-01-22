@@ -1,0 +1,17 @@
+{
+	"splash": {
+		"welcome_text": "Flickr Image Search"
+	},
+	"home": {
+		"headerTitle": "Search Image"
+	},
+	"input": {
+		"searchPlaceholder": "Search image here..."
+	},
+	"errorMessage": {
+		"_oops": "Oops",
+		"_something_went_wrong": "Something went wrong. Please try again",
+		"_no_internet": "No internet!",
+		"_no_network_desc": "Please check your network connection and try again"
+	}
+}
